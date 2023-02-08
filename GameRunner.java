@@ -10,7 +10,7 @@ public class GameRunner
   {
     Game game = new Game();
     game.play();
-    Board board =new Board();
+    Board board = new Board();
     System.out.println(board);
   }
 }

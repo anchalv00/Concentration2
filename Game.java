@@ -48,6 +48,9 @@ public class Game
       }
 
       // display first tile
+      System.out.println(row1);
+      System.out.println(col1);
+
       board.showValue(row1, col1);
 
       // get player's second selection, if not an integer, quit

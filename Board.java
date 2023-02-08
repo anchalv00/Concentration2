@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /** 
  * A game board of NxM board of tiles.
  * 
@@ -25,11 +27,57 @@ public class Board
    */
   Tile newTile;
 
+    private ArrayList<Integer> randomRow = new ArrayList<Integer>();
+    private ArrayList<Integer> randomCol = new ArrayList<Integer>();
+    private int randRow = (int) (Math.random() * gameboard.length);
+    private int randCol = (int) (Math.random() * gameboard[0].length);
+    int count = 0;
+
+
   public Board()
   {
    
+
+    /* 
+    for(int r = 0; r < gameboard.length; r++){
+      randomRow[r] =  r;
+      for(int c = 0; c < gameboard[0].length; c++){
+        randomCol[c] = c;
+      }
+    }
+    */
+
+
+    for(int i = 0; i < gameboard.length; i++){
+      while(randomRow.contains(randRow)){
+        randRow = (int) (Math.random() * gameboard.length);
+        //System.out.println("hi");
+      }
+      randomRow.add(randRow);
+      System.out.print(randomRow);
+        for(int x = 0; x < gameboard[0].length; x++){
+          while(randomCol.contains(randCol)){
+            randCol = (int) (Math.random() * gameboard[0].length);
+            //System.out.println("hello");
+          }
+          randomCol.add(randCol);
+          System.out.print(randomCol);
+          //uses count because tileValues is a 1D Array
+          newTile = new Tile(tileValues[count]);
+          gameboard[randRow][randCol] = newTile;
+          count++;
+        }
+    }
+
+    for(Tile[] t : gameboard){
+      for(Tile c : t){
+        System.out.print(c + "\t");
+      }
+    }
+    //not random
+    /* 
     int count = 0;
-    /* your code here */ 
+    // your code here 
     for(int i = 0; i < gameboard.length; i++){
         for(int x = 0; x < gameboard[0].length; x++){
           newTile = new Tile(tileValues[count]);
@@ -37,6 +85,9 @@ public class Board
           count++;
         }
       }
+    */
+
+
 
 
   }
@@ -53,7 +104,7 @@ public class Board
   public String toString()
   {
     String board = "";
-    /* your code here fff*/
+    /* your code here */
     
         for(Tile[] t : gameboard){
             for(Tile g: t){
@@ -105,7 +156,15 @@ public class Board
   public void showValue (int row, int column)
   {
    
+    
     /* your code here */
+    for(int i = 0; i < gameboard.length; i++){
+        for(int x = 0; x < gameboard[i].length; x++){
+            if(gameboard[i][x] == gameboard[row][column]){
+                gameboard[i][x].show();
+            }
+        }
+    }
   }  
 
   /** 
@@ -129,7 +188,17 @@ public class Board
   {
     String msg = "";
 
+    if(gameboard[row1][col1].equals(gameboard[row2][col2])){
+      gameboard[row1][col1].foundMatch();
+      gameboard[row2][col2].foundMatch();
+      msg = "Your tiles match!";
+    } else{
+      msg = "Your tiles do not match!";
+      gameboard[row1][col1].hide();
+      gameboard[row2][col2].hide();
+    }
      /* your code here */
+    
     
      return msg;
   }
@@ -147,7 +216,11 @@ public class Board
 
     /* your code here */
 
-    return true;
+    if(row <= gameboard.length && col <= gameboard[0].length && !gameboard[row][col].matched()){
+      return true;
+    }
+
+    return false;
   }
 
 }
