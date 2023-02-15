@@ -27,8 +27,7 @@ public class Board
    */
   Tile newTile;
 
-    private ArrayList<Integer> randomRow = new ArrayList<Integer>();
-    private ArrayList<Integer> randomCol = new ArrayList<Integer>();
+
     private int randRow = (int) (Math.random() * gameboard.length);
     private int randCol = (int) (Math.random() * gameboard[0].length);
     int count = 0;
@@ -37,43 +36,26 @@ public class Board
   public Board()
   {
    
-
-    /* 
-    for(int r = 0; r < gameboard.length; r++){
-      randomRow[r] =  r;
-      for(int c = 0; c < gameboard[0].length; c++){
-        randomCol[c] = c;
-      }
-    }
-    */
-
-
-    for(int i = 0; i < gameboard.length; i++){
-      while(randomRow.contains(randRow)){
+    for(int i = 0; i < tileValues.length; i++){
+      while(gameboard[randRow][randCol] != null){
         randRow = (int) (Math.random() * gameboard.length);
-        //System.out.println("hi");
+        randCol = (int) (Math.random() * gameboard[0].length);
       }
-      randomRow.add(randRow);
-      System.out.print(randomRow);
-        for(int x = 0; x < gameboard[0].length; x++){
-          while(randomCol.contains(randCol)){
-            randCol = (int) (Math.random() * gameboard[0].length);
-            //System.out.println("hello");
-          }
-          randomCol.add(randCol);
-          System.out.print(randomCol);
-          //uses count because tileValues is a 1D Array
-          newTile = new Tile(tileValues[count]);
-          gameboard[randRow][randCol] = newTile;
-          count++;
-        }
+    
+      newTile = new Tile(tileValues[i]);
+      gameboard[randRow][randCol] = newTile;
+      count++;
     }
 
+    /* for printing board
     for(Tile[] t : gameboard){
       for(Tile c : t){
         System.out.print(c + "\t");
       }
     }
+    */
+
+
     //not random
     /* 
     int count = 0;
@@ -86,9 +68,6 @@ public class Board
         }
       }
     */
-
-
-
 
   }
 
